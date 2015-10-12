@@ -25,15 +25,12 @@ public class Trie {
         for (int i = 0; i < word.length(); i++) {
             node = cur.children.get(word.charAt(i));
             if (node == null) {
-                node = new TrieNode(word.charAt(i), i == word.length() - 1);
-            } else {
-                if (i == word.length() - 1) {
-                    node.endOfWord = true;
-                }
+                node = new TrieNode(word.charAt(i));
+                cur.children.put(word.charAt(i), node);
             }
-            cur.children.put(word.charAt(i), node);
             cur = node;
         }
+        cur.endOfWord = true;
     }
 
     public boolean search(String word) {
@@ -41,18 +38,13 @@ public class Trie {
             return false;
         }
         TrieNode cur = root;
-        TrieNode node;
         for (int i = 0; i < word.length(); i++) {
-            node = cur.children.get(word.charAt(i));
-            if (node == null) {
+            cur = cur.children.get(word.charAt(i));
+            if (cur == null) {
                 return false;
             }
-            if (!node.endOfWord && i == word.length() - 1) {
-                return false;
-            }
-            cur = node;
         }
-        return true;
+        return cur.endOfWord;
     }
 
     public boolean startsWith(String prefix) {
@@ -60,13 +52,11 @@ public class Trie {
             return false;
         }
         TrieNode cur = root;
-        TrieNode node;
         for (int i = 0; i < prefix.length(); i++) {
-            node = cur.children.get(prefix.charAt(i));
-            if (node == null) {
+            cur = cur.children.get(prefix.charAt(i));
+            if (cur == null) {
                 return false;
             }
-            cur = node;
         }
         return true;
     }
@@ -113,12 +103,7 @@ public class Trie {
         }
 
         public TrieNode(char value) {
-            this(value, false);
-        }
-
-        public TrieNode(char value, boolean endOfWord) {
             this.value = value;
-            this.endOfWord = endOfWord;
             children = new HashMap<>(26);
         }
     }
