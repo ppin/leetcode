@@ -20,7 +20,7 @@ public class Subset {
     }
 
     private void helper(int[] nums, int index, List<Integer> subset, List<List<Integer>> subsets) {
-        subsets.add(new ArrayList(subset));
+        subsets.add(new ArrayList<>(subset));
         for (int i = index; i< nums.length; i++) {
             subset.add(nums[i]);
             helper(nums, i + 1, subset, subsets);
