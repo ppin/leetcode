@@ -1,2 +1,2 @@
 # leetcode
-The solutions for all algorithm question on leetcode, implemented by Java.
+The solutions for all algorithm questions on leetcode, implemented by Java.
